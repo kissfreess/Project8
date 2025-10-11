@@ -1,5 +1,5 @@
 import Transactions.ImmutableTransaction;
-import Transactions.TransactionType;
+import Transactions.TransactionType.TransactionType;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 

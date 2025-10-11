@@ -1,5 +1,6 @@
 package Transactions;
 
+import Transactions.TransactionType.TransactionType;
 import org.immutables.value.Value;
 
 @Value.Immutable

@@ -2,7 +2,7 @@ import BalanceCalculator.MinBalanceCalculatorForImpl;
 import BankAccount.BankAccount;
 import Transactions.ImmutableTransaction;
 import Transactions.Transaction;
-import Transactions.TransactionType;
+import Transactions.TransactionType.TransactionType;
 import org.junit.Before;
 import org.junit.Test;
 

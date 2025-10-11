@@ -4,25 +4,31 @@ import BankAccount.BankAccount;
 import Transactions.BankAccountTransactionApproverImpl;
 import Transactions.ImmutableTransaction;
 import Transactions.Transaction;
-import Transactions.TransactionType;
+import Transactions.TransactionType.TransactionType;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BankAccountTransactionApproverImplTest  {
 
-    private BankAccountTransactionApproverImpl approver;
+    @Mock
     private CurrentBalanceCalculator calculator;
 
-    @Before
-    public void setUp() {
-        calculator = new CurrentBalanceCalculatorForImpl();
-        approver = new BankAccountTransactionApproverImpl(calculator);
-    }
+    @InjectMocks
+    private BankAccountTransactionApproverImpl approver;
 
     @Test
     public void shouldApproveDepositTransaction() {
+
         BankAccount bankAccount = new BankAccount("Roman", null);
         ImmutableTransaction transaction = ImmutableTransaction.of(100, TransactionType.DEPOSIT);
         boolean result = approver.approve(bankAccount, transaction);
@@ -32,13 +38,10 @@ public class BankAccountTransactionApproverImplTest  {
 
     @Test
     public void shouldApproveWithdrawAllTransactionWhenBalanceSufficient(){
-        Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(2000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(1500, TransactionType.WITHDRAWAL)
-        };
-        BankAccount bankAccount = new BankAccount("Roman", transactions);
+
+        BankAccount bankAccount = new BankAccount("Roman", new Transaction[0]);
         ImmutableTransaction transaction = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+        when(calculator.calculate(bankAccount)).thenReturn(1000);
         boolean result = approver.approve(bankAccount, transaction);
 
         assertTrue(result);
@@ -46,17 +49,26 @@ public class BankAccountTransactionApproverImplTest  {
 
     @Test
     public void shouldRejectWithdrawAllTransactionWhenBalanceInSufficient(){
-        Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(2000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(3000, TransactionType.WITHDRAWAL)
-        };
-        BankAccount bankAccount = new BankAccount("Roman", transactions);
-        ImmutableTransaction transaction = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+
+        BankAccount bankAccount = new BankAccount("Roman", 100, new Transaction[0]);
+        ImmutableTransaction transaction = ImmutableTransaction.of(700, TransactionType.WITHDRAWAL);
+        when(calculator.calculate(bankAccount)).thenReturn(500);
         boolean result = approver.approve(bankAccount, transaction);
 
         assertFalse(result);
     }
 
+    @Test
+    public void shouldApproveWithdrawAllTransactionWhenBalancePlusCreditLimitEqualTransaction(){
+
+        BankAccount bankAccount = new BankAccount("Roman", 100, new Transaction[0]);
+        ImmutableTransaction transaction = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+        when(calculator.calculate(bankAccount)).thenReturn(400);
+        boolean result = approver.approve(bankAccount, transaction);
+
+        assertTrue(result);
+    }
+
 
 }
+

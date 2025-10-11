@@ -3,12 +3,15 @@ import BankAccount.BankAccount;
 import Transactions.Transaction;
 
 public class CurrentBalanceCalculatorForImpl implements CurrentBalanceCalculator{
+
     @Override
     public int calculate(BankAccount bankAccount) {
         int balance = 0;
-        if (bankAccount.getTransactions() == null){
+        if (bankAccount.hasNoTransactions()){
+
             return balance;
         }
+
         for (Transaction transaction : bankAccount.getTransactions()) {
             if (transaction.isDeposit()){
                 balance+= transaction.sum();
@@ -16,7 +19,7 @@ public class CurrentBalanceCalculatorForImpl implements CurrentBalanceCalculator
                 balance-=transaction.sum();
             }
         }
+
         return balance;
     }
-
 }

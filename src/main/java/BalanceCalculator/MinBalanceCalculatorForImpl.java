@@ -4,12 +4,14 @@ import BankAccount.BankAccount;
 import Transactions.Transaction;
 
 public class MinBalanceCalculatorForImpl implements MinBalanceCalculator{
+
     @Override
     public int calculateMinBalance(BankAccount bankAccount) {
         int currentBalance = 0;
         int minBalance = 0;
 
-        if (bankAccount.getTransactions() == null){
+        if (bankAccount.hasNoTransactions()){
+
             return 0;
         }
 
@@ -21,10 +23,12 @@ public class MinBalanceCalculatorForImpl implements MinBalanceCalculator{
             } else if (transaction.isWithdrawAll()) {
                 currentBalance -= transaction.sum();
             }
+
             if (currentBalance < minBalance){
                 minBalance = currentBalance;
             }
         }
+
         return minBalance;
     }
 }

@@ -4,12 +4,13 @@ import BankAccount.BankAccount;
 import Transactions.Transaction;
 
 public class MaxBalanceCalculaorForImpl implements MaxBalanceCalculaor {
+
     @Override
     public int calculateMaxBalance(BankAccount bankAccount) {
         int currentBalance = 0;
         int maxBalance = 0;
 
-        if (bankAccount.getTransactions() == null){
+        if (bankAccount.hasNoTransactions()){
             return 0;
         }
 
@@ -21,10 +22,12 @@ public class MaxBalanceCalculaorForImpl implements MaxBalanceCalculaor {
             } else if (transaction.isWithdrawAll()) {
                 currentBalance -= transaction.sum();
             }
+
             if (currentBalance > maxBalance){
                 maxBalance = currentBalance;
             }
         }
+
         return maxBalance;
     }
 }
