@@ -6,11 +6,11 @@ import Domain.Transaction;
 
 import java.util.Arrays;
 
-public class FoodExpensesCalculator {
-    public int calculateExpensesAmount(BankAccount bankAccount) {
+public class ExpensesCalculator {
+    public int calculateExpensesAmount(BankAccount bankAccount, ExpenseCategory category) {
         return Arrays.stream(bankAccount.getTransactions())
                 .filter(Transaction::isWithdrawAll)
-                .filter(t -> t.expenseCategory() == ExpenseCategory.FOOD)
+                .filter(t -> t.expenseCategory() == category)
                 .mapToInt(Transaction::sum)
                 .sum();
     }
