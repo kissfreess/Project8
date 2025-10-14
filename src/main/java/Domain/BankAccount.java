@@ -7,12 +7,12 @@ public class BankAccount {
     private Transaction[] transactions;
     private int creditLimit;
 
-    public BankAccount(String ownerFullName, Transaction[] transactions) {
+    public BankAccount(String ownerFullName, Transaction ... transactions) {
         this.ownerFullName = ownerFullName;
         this.transactions = transactions;
     }
 
-    public BankAccount(String ownerFullName, int creditLimit, Transaction[] transactions) {
+    public BankAccount(String ownerFullName, int creditLimit, Transaction ... transactions) {
         this.ownerFullName = ownerFullName;
         this.creditLimit = creditLimit;
         this.transactions = transactions;
