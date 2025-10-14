@@ -1,4 +1,4 @@
-package Transactions.TransactionType;
+package Domain;
 
 public enum TransactionType {
     DEPOSIT,

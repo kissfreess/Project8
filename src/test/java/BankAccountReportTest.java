@@ -1,8 +1,5 @@
-import BankAccount.BankAccount;
-import BankAccount.BankAccountReport;
-import Transactions.ImmutableTransaction;
-import Transactions.Transaction;
-import Transactions.TransactionType.TransactionType;
+import Domain.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,14 +20,14 @@ public class BankAccountReportTest  {
 
     @Test
     public void shouldReturnCorrectBankAccountReport() {
-        Transaction[] transactions = {ImmutableTransaction.of(200, TransactionType.DEPOSIT),
-                                        ImmutableTransaction.of(100, TransactionType.WITHDRAWAL),
-                                        ImmutableTransaction.of(100, TransactionType.DEPOSIT),
-                                        ImmutableTransaction.of(100, TransactionType.WITHDRAWAL)};
+        Transaction[] transactions = {new TransactionFactory().createDepositTransaction(200),
+                new TransactionFactory().createWithdrawAllTransaction(100, ExpenseCategory.FOOD),
+                new TransactionFactory().createDepositTransaction(100),
+                new TransactionFactory().createWithdrawAllTransaction(100, ExpenseCategory.LOANS)};
         when(bankAccount.getTransactions()).thenReturn(transactions);
         String report = bankAccountReport.bankAccountReport(bankAccount);
 
-        assertTrue(report.contains("Transaction list:"));
+        assertTrue(report.contains("Domain.Transaction list:"));
         assertTrue(report.contains("DEPOSIT 200"));
         assertTrue(report.contains("WITHDRAWAL 100"));
         assertTrue(report.contains("DEPOSIT 100"));

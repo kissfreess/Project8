@@ -1,5 +1,8 @@
-import Transactions.ImmutableTransaction;
-import Transactions.TransactionType.TransactionType;
+import Domain.ExpenseCategory;
+import Domain.Transaction;
+import Domain.TransactionFactory;
+import Domain.TransactionType;
+
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -7,15 +10,16 @@ public class TransactionTest {
 
     @Test
     public void shouldCreateTransactionUsingOfMethod(){
-        ImmutableTransaction transaction = ImmutableTransaction.of(1000, TransactionType.DEPOSIT);
+        Transaction transaction = new TransactionFactory().createDepositTransaction(1000);
         assertEquals(1000, transaction.sum());
         assertEquals(TransactionType.DEPOSIT, transaction.transactionType());
 
     }
     @Test
     public void shouldBeEqualForSameValues() {
-        ImmutableTransaction transaction1 = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
-        ImmutableTransaction transaction2 = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+        Transaction transaction1 = new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD);
+        Transaction transaction2 = new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD);
+
         assertEquals(transaction1, transaction2);
     }
 

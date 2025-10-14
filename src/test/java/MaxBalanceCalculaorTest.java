@@ -1,8 +1,6 @@
-import BalanceCalculator.MaxBalanceCalculaorForImpl;
-import BankAccount.BankAccount;
-import Transactions.ImmutableTransaction;
-import Transactions.Transaction;
-import Transactions.TransactionType.TransactionType;
+import Domain.*;
+import MaxBalance.MaxBalanceCalculaorForImpl;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,9 +35,9 @@ public class MaxBalanceCalculaorTest {
     @Test
     public void shouldCalculateMaxBalanceWithDepositsOnly() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(500, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(125, TransactionType.DEPOSIT)
+                new TransactionFactory().createDepositTransaction(1000),
+                new TransactionFactory().createDepositTransaction(500),
+                new TransactionFactory().createDepositTransaction(125)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int MaxBalance = calculatorMaxBalance.calculateMaxBalance(bankAccount);
@@ -49,9 +47,9 @@ public class MaxBalanceCalculaorTest {
     @Test
     public void shouldCalculateZeroBalanceWithWithdrawsOnly() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(125, TransactionType.WITHDRAWAL)
+                new TransactionFactory().createWithdrawAllTransaction(1000, ExpenseCategory.FOOD),
+                new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD),
+                new TransactionFactory().createWithdrawAllTransaction(125, ExpenseCategory.FOOD)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int MaxBalance = calculatorMaxBalance.calculateMaxBalance(bankAccount);
@@ -61,11 +59,11 @@ public class MaxBalanceCalculaorTest {
     @Test
     public void shouldCalculateMaxBalanceWithMixedDepositsAndWithdraws() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(2000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL),
+                new TransactionFactory().createDepositTransaction(1000),
+                new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD),
+                new TransactionFactory().createDepositTransaction(2000),
+                new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD),
+                new TransactionFactory().createDepositTransaction(500)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int MaxBalance = calculatorMaxBalance.calculateMaxBalance(bankAccount);

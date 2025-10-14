@@ -1,6 +1,7 @@
-package BalanceCalculator;
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+package CurrentBalance;
+
+import Domain.BankAccount;
+import Domain.Transaction;
 
 public class CurrentBalanceCalculatorForImpl implements CurrentBalanceCalculator{
 

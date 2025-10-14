@@ -1,6 +1,6 @@
-package BalanceCalculator;
+package DepositAmount;
 
-import BankAccount.BankAccount;
+import Domain.BankAccount;
 
 public interface DepositAmountCalculator {
     public int calculate(BankAccount bankAccount);

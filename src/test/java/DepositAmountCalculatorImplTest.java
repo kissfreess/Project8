@@ -1,6 +1,6 @@
-import BalanceCalculator.DepositAmountCalculatorImpl;
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+import DepositAmount.DepositAmountCalculatorImpl;
+import Domain.BankAccount;
+import Domain.Transaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

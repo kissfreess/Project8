@@ -1,5 +1,6 @@
-package BalanceCalculator;
-import BankAccount.BankAccount;
+package CurrentBalance;
+
+import Domain.BankAccount;
 
 public interface CurrentBalanceCalculator {
 

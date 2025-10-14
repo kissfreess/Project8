@@ -1,17 +1,15 @@
-package BalanceCalculator;
+package MaxBalance;
 
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+import Domain.Transaction;
 
-public class MinBalanceCalculatorForImpl implements MinBalanceCalculator{
+public class MaxBalanceCalculaorForImpl implements MaxBalanceCalculaor {
 
     @Override
-    public int calculateMinBalance(BankAccount bankAccount) {
+    public int calculateMaxBalance(Domain.BankAccount bankAccount) {
         int currentBalance = 0;
-        int minBalance = 0;
+        int maxBalance = 0;
 
         if (bankAccount.hasNoTransactions()){
-
             return 0;
         }
 
@@ -24,11 +22,11 @@ public class MinBalanceCalculatorForImpl implements MinBalanceCalculator{
                 currentBalance -= transaction.sum();
             }
 
-            if (currentBalance < minBalance){
-                minBalance = currentBalance;
+            if (currentBalance > maxBalance){
+                maxBalance = currentBalance;
             }
         }
 
-        return minBalance;
+        return maxBalance;
     }
 }

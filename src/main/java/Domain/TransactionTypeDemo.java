@@ -1,6 +1,4 @@
-package Transactions;
-
-import Transactions.TransactionType.TransactionType;
+package Domain;
 
 public class TransactionTypeDemo {
     TransactionType deposit = TransactionType.DEPOSIT;

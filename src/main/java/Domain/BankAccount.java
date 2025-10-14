@@ -1,6 +1,5 @@
-package BankAccount;
+package Domain;
 
-import Transactions.Transaction;
 // Lombok  юзать не получается т.к. потом не видны геттеры в тестах
 public class BankAccount {
 

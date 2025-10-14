@@ -1,21 +1,18 @@
-package Transactions;
+package Domain;
 
-import Transactions.TransactionType.TransactionType;
-import org.immutables.value.Value;
-
-@Value.Immutable
 public interface Transaction {
 
-    @Value.Parameter
     int sum();
-    @Value.Parameter
     TransactionType transactionType();
+    ExpenseCategory expenseCategory();
 
     public default boolean isDeposit(){
+
         return transactionType() == TransactionType.DEPOSIT;
     }
 
     public default boolean isWithdrawAll(){
+
         return transactionType() == TransactionType.WITHDRAWAL;
     }
 

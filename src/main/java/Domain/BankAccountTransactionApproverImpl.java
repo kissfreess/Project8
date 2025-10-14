@@ -1,7 +1,6 @@
-package Transactions;
+package Domain;
 
-import BalanceCalculator.CurrentBalanceCalculator;
-import BankAccount.BankAccount;
+import CurrentBalance.CurrentBalanceCalculator;
 
 public class BankAccountTransactionApproverImpl implements BankAccountTransactionApprover{
 

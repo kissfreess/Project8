@@ -1,6 +1,6 @@
-package BalanceCalculator;
+package MinBalance;
 
-import BankAccount.BankAccount;
+import Domain.BankAccount;
 
 public interface MinBalanceCalculator {
     int calculateMinBalance(BankAccount bankAccount);

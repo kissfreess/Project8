@@ -1,7 +1,7 @@
 
-import BalanceCalculator.WithdrawalAmountCalculatorImpl;
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+import Domain.BankAccount;
+import Domain.Transaction;
+import WithdrawallAmount.WithdrawalAmountCalculatorImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

@@ -1,9 +1,6 @@
-import BalanceCalculator.CurrentBalanceCalculatorForImpl;
-import BalanceCalculator.CurrentBalanceCalculatorStreamApiImpl;
-import BankAccount.BankAccount;
-import Transactions.ImmutableTransaction;
-import Transactions.Transaction;
-import Transactions.TransactionType.TransactionType;
+import CurrentBalance.CurrentBalanceCalculatorForImpl;
+import CurrentBalance.CurrentBalanceCalculatorStreamApiImpl;
+import Domain.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,9 +39,9 @@ public class CurrentBalanceCalculatorTest {
     @Test
     public void shouldCalculateBalanceWithDepositsOnly() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(500, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(125, TransactionType.DEPOSIT)
+                new TransactionFactory().createDepositTransaction(1000),
+                new TransactionFactory().createDepositTransaction(500),
+                new TransactionFactory().createDepositTransaction(125)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int balance = calculator1.calculate(bankAccount);
@@ -54,9 +51,9 @@ public class CurrentBalanceCalculatorTest {
     @Test
     public void shouldCalculateBalanceWithWithdrawsOnly() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(200, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL)
+                new TransactionFactory().createWithdrawAllTransaction(1000, ExpenseCategory.FOOD),
+                new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD),
+                new TransactionFactory().createWithdrawAllTransaction(200, ExpenseCategory.FOOD)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int balance = calculator1.calculate(bankAccount);
@@ -66,10 +63,10 @@ public class CurrentBalanceCalculatorTest {
     @Test
     public void shouldCalculateBalanceWithMixedDepositsAndWithdraws() {
         Transaction[] transactions = {
-                ImmutableTransaction.of(1000, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(2000, TransactionType.DEPOSIT),
-                ImmutableTransaction.of(500, TransactionType.WITHDRAWAL),
-                ImmutableTransaction.of(100, TransactionType.DEPOSIT)
+                new TransactionFactory().createWithdrawAllTransaction(1000, ExpenseCategory.FOOD),
+                new TransactionFactory().createDepositTransaction(2000),
+                new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD),
+                new TransactionFactory().createDepositTransaction(100)
         };
         BankAccount bankAccount = new BankAccount("Roman", transactions);
         int balance = calculator1.calculate(bankAccount);

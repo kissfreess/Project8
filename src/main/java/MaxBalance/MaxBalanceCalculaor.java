@@ -1,6 +1,6 @@
-package BalanceCalculator;
+package MaxBalance;
 
-import BankAccount.BankAccount;
+import Domain.BankAccount;
 
 public interface MaxBalanceCalculaor {
 

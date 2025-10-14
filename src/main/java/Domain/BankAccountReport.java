@@ -1,9 +1,10 @@
-package BankAccount;
+package Domain;
 
-import BalanceCalculator.*;
-import Transactions.ImmutableTransaction;
-import Transactions.Transaction;
-import Transactions.TransactionType.TransactionType;
+import CurrentBalance.CurrentBalanceCalculatorStreamApiImpl;
+import DepositAmount.DepositAmountCalculatorImpl;
+import MaxBalance.MaxBalanceCalculaorForImpl;
+import MinBalance.MinBalanceCalculatorForImpl;
+import WithdrawallAmount.WithdrawalAmountCalculatorImpl;
 
 public class BankAccountReport {
 
@@ -16,7 +17,7 @@ public class BankAccountReport {
 
 
     public void transactionList(BankAccount bankAccount, StringBuilder report) {
-        report.append("Transaction list:");
+        report.append("Domain.Transaction list:");
         report.append(System.lineSeparator());
 
         for (Transaction transaction : bankAccount.getTransactions()) {

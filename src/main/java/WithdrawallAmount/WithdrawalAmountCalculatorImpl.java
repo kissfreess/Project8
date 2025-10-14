@@ -1,14 +1,12 @@
-package BalanceCalculator;
+package WithdrawallAmount;
 
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+import Domain.Transaction;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class WithdrawalAmountCalculatorImpl implements WithdrawalAmountCalculator{
     @Override
-    public int calculate(BankAccount bankAccount) {
+    public int calculate(Domain.BankAccount bankAccount) {
 
         return Arrays.stream(bankAccount.getTransactions())
                 .filter(Transaction::isWithdrawAll)

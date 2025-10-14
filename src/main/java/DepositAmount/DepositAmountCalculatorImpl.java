@@ -1,14 +1,13 @@
-package BalanceCalculator;
+package DepositAmount;
 
-import BankAccount.BankAccount;
-import Transactions.Transaction;
+import Domain.Transaction;
 
 import java.util.Arrays;
 
 public class DepositAmountCalculatorImpl implements DepositAmountCalculator{
 
     @Override
-    public int calculate(BankAccount bankAccount) {
+    public int calculate(Domain.BankAccount bankAccount) {
 
         return Arrays.stream(bankAccount.getTransactions())
                 .filter(Transaction::isDeposit)

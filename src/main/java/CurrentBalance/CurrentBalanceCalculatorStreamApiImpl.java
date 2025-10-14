@@ -1,7 +1,7 @@
-package BalanceCalculator;
+package CurrentBalance;
 
-import BankAccount.BankAccount;
-import Transactions.TransactionType.TransactionType;
+import Domain.BankAccount;
+import Domain.TransactionType;
 
 import java.util.Arrays;
 

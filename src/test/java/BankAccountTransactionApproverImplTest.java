@@ -1,11 +1,5 @@
-import BalanceCalculator.CurrentBalanceCalculator;
-import BalanceCalculator.CurrentBalanceCalculatorForImpl;
-import BankAccount.BankAccount;
-import Transactions.BankAccountTransactionApproverImpl;
-import Transactions.ImmutableTransaction;
-import Transactions.Transaction;
-import Transactions.TransactionType.TransactionType;
-import org.junit.Before;
+import CurrentBalance.CurrentBalanceCalculator;
+import Domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,7 +24,7 @@ public class BankAccountTransactionApproverImplTest  {
     public void shouldApproveDepositTransaction() {
 
         BankAccount bankAccount = new BankAccount("Roman", null);
-        ImmutableTransaction transaction = ImmutableTransaction.of(100, TransactionType.DEPOSIT);
+        Transaction transaction = new TransactionFactory().createDepositTransaction(100);
         boolean result = approver.approve(bankAccount, transaction);
 
         assertTrue(result);
@@ -40,7 +34,7 @@ public class BankAccountTransactionApproverImplTest  {
     public void shouldApproveWithdrawAllTransactionWhenBalanceSufficient(){
 
         BankAccount bankAccount = new BankAccount("Roman", new Transaction[0]);
-        ImmutableTransaction transaction = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+        Transaction transaction = new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD);
         when(calculator.calculate(bankAccount)).thenReturn(1000);
         boolean result = approver.approve(bankAccount, transaction);
 
@@ -51,7 +45,7 @@ public class BankAccountTransactionApproverImplTest  {
     public void shouldRejectWithdrawAllTransactionWhenBalanceInSufficient(){
 
         BankAccount bankAccount = new BankAccount("Roman", 100, new Transaction[0]);
-        ImmutableTransaction transaction = ImmutableTransaction.of(700, TransactionType.WITHDRAWAL);
+        Transaction transaction = new TransactionFactory().createWithdrawAllTransaction(700, ExpenseCategory.FOOD);
         when(calculator.calculate(bankAccount)).thenReturn(500);
         boolean result = approver.approve(bankAccount, transaction);
 
@@ -62,7 +56,7 @@ public class BankAccountTransactionApproverImplTest  {
     public void shouldApproveWithdrawAllTransactionWhenBalancePlusCreditLimitEqualTransaction(){
 
         BankAccount bankAccount = new BankAccount("Roman", 100, new Transaction[0]);
-        ImmutableTransaction transaction = ImmutableTransaction.of(500, TransactionType.WITHDRAWAL);
+        Transaction transaction = new TransactionFactory().createWithdrawAllTransaction(500, ExpenseCategory.FOOD);
         when(calculator.calculate(bankAccount)).thenReturn(400);
         boolean result = approver.approve(bankAccount, transaction);
 
