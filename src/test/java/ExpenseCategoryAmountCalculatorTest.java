@@ -1,9 +1,8 @@
-package Expensesanalyser;
-
 import Domain.BankAccount;
 import Domain.ExpenseCategory;
 import Domain.Transaction;
 import Domain.TransactionFactory;
+import Expensesanalyser.ExpenseCategoryAmountCalculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -39,9 +38,14 @@ public class ExpenseCategoryAmountCalculatorTest {
 
         Map<ExpenseCategory, Integer> result = calculator.calculate(bankAccount);
 
-        assertEquals(3, result.size());
-        assertEquals(300, result.get(ExpenseCategory.FOOD));
-        assertEquals(300, result.get(ExpenseCategory.ENTERTAINMENT));
-        assertEquals(300, result.get(ExpenseCategory.COMMUNAL_PAYMENTS));
+
+        assertAll(
+                () -> assertEquals(3, result.size()),
+                () ->assertEquals(300, result.get(ExpenseCategory.FOOD)),
+                () ->assertEquals(300, result.get(ExpenseCategory.ENTERTAINMENT)),
+                () ->assertEquals(300, result.get(ExpenseCategory.COMMUNAL_PAYMENTS))
+        );
+
+
     }
 }
